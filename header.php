@@ -1,12 +1,14 @@
 <?php
-require_once "config.php";
-require_once "models/category.php";
-require_once "models/db.php";
-require_once "models/item.php";
+require "config.php";
+require "models/db.php";
+require "models/category.php";
+require "models/item.php";
 $item = new Item;
 $category = new Category;
-$getAllCate = $category->getAllCate();
-$getAllItem = $item->getAllItem();
+$getAllCates = $category->getAllCate();
+$getAllItems = $item->getAllItems();
+//var_dump($getAllItems);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,7 @@ $getAllItem = $item->getAllItem();
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
@@ -99,18 +101,21 @@ $getAllItem = $item->getAllItem();
                 <div class="navbar-nav mr-auto py-0">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <?php
-                    foreach($getAllCate as $key=>$value):
+                    foreach ($getAllCates as $key => $value) :
                     ?>
-                    <a href="category.html" class="nav-item nav-link"><?php echo $value['name']?></a>
+                        <a href="category.html" class="nav-item nav-link"><?php echo $value['name'] ?></a>
                     <?php endforeach ?>
                 </div>
-                <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
-                    <input type="text" class="form-control border-0" placeholder="Keyword">
-                    <div class="input-group-append">
-                        <button class="input-group-text bg-primary text-dark border-0 px-3"><i
-                                class="fa fa-search"></i></button>
+                <form action="result.php" method="get">
+                    <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
+                        <input type="text" name="keyword" class="form-control border-0" placeholder="Keyword">
+                        <div class="input-group-append">
+                            <button type="submit" class="input-group-text bg-primary text-dark border-0 px-3">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </nav>
     </div>
